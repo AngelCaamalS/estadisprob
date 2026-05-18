@@ -78,14 +78,14 @@
             box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
         }
 
-        .bar-group { margin-bottom: 15px; }
+        .bar-group { margin-bottom: 25px; }
 
         .bar-label {
             display: flex;
             justify-content: space-between;
             font-weight: bold;
             font-size: 1rem;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: #37474f;
         }
 
@@ -101,17 +101,12 @@
             background: #cfd8dc;
             border-radius: 10px;
             overflow: hidden;
-            height: 20px;
+            height: 24px;
             display: flex;
         }
 
         .bar-upy {
             background: var(--primary);
-            transition: width 1s ease-in-out;
-        }
-
-        .bar-others {
-            background: var(--secondary);
             transition: width 1s ease-in-out;
         }
 
@@ -159,10 +154,10 @@
 <body>
 
     <div class="slide-container active">
-        <h1 style="font-size: 3rem;">Estudio Comparativo de Preferencias Académicas y Profesionales</h1>
+        <h1 style="font-size: 3rem;">Estudio de Preferencias Académicas y Profesionales</h1>
         <h3 style="text-align: center; margin-top: 10px;">Universidad Politécnica de Yucatán</h3>
         <p style="text-align: center; max-width: 600px; margin: 30px auto 0 auto;">
-            Un análisis sobre los factores de elección de carrera, satisfacción estudiantil y expectativas de futuro de los alumnos de la UPY frente a otras universidades.
+            Un análisis detallado sobre los factores de elección de carrera, satisfacción estudiantil y expectativas de futuro de los alumnos de la UPY.
         </p>
     </div>
 
@@ -171,14 +166,14 @@
         <div class="grid-2">
             <div>
                 <h3>El Reto Vocacional</h3>
-                <p>Los alumnos de la UPY enfrentan el desafío de elegir carreras tecnológicas avanzadas alineadas a sus intereses. La falta de claridad en los factores de influencia y expectativas futuras genera riesgos que deben ser atendidos.</p>
+                <p>Los alumnos de la UPY enfrentan el desafío de elegir carreras tecnológicas avanzadas alineadas a sus intereses. La falta de claridad en los factores de influencia y expectativas futuras genera riesgos de deserción que deben ser atendidos.</p>
             </div>
             <div class="chart-box" style="background: #fff3e0; border-left: 5px solid var(--accent);">
                 <h3>Impacto de la Investigación</h3>
                 <ul>
-                    <li><strong>Académico:</strong> Fortalece programas de orientación vocacional con datos reales.</li>
-                    <li><strong>Institucional:</strong> Detecta áreas de mejora en la oferta educativa de la UPY.</li>
-                    <li><strong>Social:</strong> Ayuda a decisiones informadas reduciendo la deserción escolar.</li>
+                    <li><strong>Académico:</strong> Permite conocer las motivaciones de los estudiantes para fortalecer los programas de orientación vocacional internos.</li>
+                    <li><strong>Institucional:</strong> Ayudará a la UPY a detectar áreas de mejora en su oferta educativa y a implementar estrategias de satisfacción.</li>
+                    <li><strong>Social:</strong> Ayudará a los alumnos a tomar decisiones más informadas, reduciendo el cambio de carrera.</li>
                 </ul>
             </div>
         </div>
@@ -189,29 +184,29 @@
         <div class="grid-2">
             <div class="chart-box">
                 <h3 style="color: var(--primary);">Objetivo General</h3>
-                <p>Comparar las preferencias académicas y profesionales de los estudiantes de la UPY con los de otras universidades para hallar similitudes y diferencias que optimicen la oferta educativa.</p>
+                <p>Analizar las preferencias académicas y profesionales de los estudiantes de la UPY para identificar factores determinantes que ayuden a mejorar la orientación vocacional y la oferta educativa de la institución.</p>
             </div>
             <div class="chart-box">
                 <h3 style="color: var(--secondary);">Objetivo Particular</h3>
-                <p>Analizar y contrastar los factores críticos que influyen en la elección (interés personal, influencia familiar, oportunidades laborales y el prestigio institucional).</p>
+                <p>Identificar los factores específicos que influyen en la elección de carrera dentro de la UPY (como el interés personal, influencia familiar, oportunidades laborales y prestigio de la institución) y su relación con el nivel de satisfacción actual.</p>
             </div>
         </div>
     </div>
 
     <div class="slide-container">
         <h2>Perfil Demográfico de la Muestra</h2>
-        <p>Se encuestó a un grupo representativo de estudiantes para obtener estadísticas precisas y claras.</p>
+        <p>Se encuestó a un grupo focal interno para obtener estadísticas precisas sobre la comunidad estudiantil de la UPY.</p>
         <div class="grid-2">
             <div>
-                <h3>Muestra Total Encuestada</h3>
+                <h3>Datos Generales</h3>
                 <div class="card-metrics">
-                    <div class="metric-card"><div class="metric-num">31</div><p>Total de<br>Alumnos</p></div>
-                    <div class="metric-card"><div class="metric-num">16</div><p>Alumnos<br>UPY</p></div>
-                    <div class="metric-card"><div class="metric-num">15</div><p>Otras<br>Univ.</p></div>
+                    <div class="metric-card"><div class="metric-num">16</div><p>Total de<br>Alumnos UPY</p></div>
+                    <div class="metric-card"><div class="metric-num">20</div><p>Edad<br>Promedio</p></div>
+                    <div class="metric-card"><div class="metric-num">100%</div><p>Modalidad<br>Bilingüe</p></div>
                 </div>
             </div>
             <div class="chart-box">
-                <h3>Sexo y Edad (Muestra UPY de 16 personas)</h3>
+                <h3>Distribución por Sexo</h3>
                 <div class="bar-group">
                     <div class="bar-label"><span>Hombres</span><span>9 de 16 (56%)</span></div>
                     <div class="bar-container"><div class="bar-upy" style="width: 56%;"></div></div>
@@ -220,7 +215,7 @@
                     <div class="bar-label"><span>Mujeres</span><span>7 de 16 (44%)</span></div>
                     <div class="bar-container"><div class="bar-upy" style="width: 44%; background: #00796b;"></div></div>
                 </div>
-                <span style="font-size: 0.85rem; color:#78909c;">*Edad promedio del grupo focal encuestado: 20 años.</span>
+                <span style="font-size: 0.85rem; color:#78909c;">*La muestra incluye estudiantes cursando diferentes cuatrimestres.</span>
             </div>
         </div>
     </div>
@@ -231,26 +226,18 @@
             <div class="chart-box">
                 <h3>¿Te parece interesante tu carrera?</h3>
                 <div class="bar-group">
-                    <div class="bar-label"><span>UPY (Sí)</span><span>14 de 16 (88%)</span></div>
+                    <div class="bar-label"><span>Sí, es muy interesante</span><span>14 de 16 (88%)</span></div>
                     <div class="bar-container"><div class="bar-upy" style="width: 88%;"></div></div>
                 </div>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Otras Univ. (Sí)</span><span>12 de 15 (80%)</span></div>
-                    <div class="bar-container"><div class="bar-others" style="width: 80%;"></div></div>
-                </div>
-                <p style="font-size: 0.9rem; margin-top: 10px;">Casi la totalidad de la muestra de la UPY mantiene un interés genuino en sus materias.</p>
+                <p style="font-size: 0.95rem; margin-top: 10px;">Casi la totalidad de la muestra mantiene un interés genuino y alta motivación por el plan de estudios.</p>
             </div>
             <div class="chart-box">
-                <h3>¿Te visualizas trabajando en ella en 5 años?</h3>
+                <h3>¿Te visualizas trabajando en tu área en 5 años?</h3>
                 <div class="bar-group">
-                    <div class="bar-label"><span>UPY (Sí)</span><span>13 de 16 (81%)</span></div>
+                    <div class="bar-label"><span>Sí me visualizo</span><span>13 de 16 (81%)</span></div>
                     <div class="bar-container"><div class="bar-upy" style="width: 81%;"></div></div>
                 </div>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Otras Univ. (Sí)</span><span>11 de 15 (73%)</span></div>
-                    <div class="bar-container"><div class="bar-others" style="width: 73%;"></div></div>
-                </div>
-                <p style="font-size: 0.9rem; margin-top: 10px;">Fuerte proyección laboral gracias a la demanda del sector de IT.</p>
+                <p style="font-size: 0.95rem; margin-top: 10px;">Existe una fuerte proyección a futuro, respaldada por la alta demanda del sector tecnológico.</p>
             </div>
         </div>
     </div>
@@ -259,28 +246,20 @@
         <h2>Percepción de Dificultad y Equilibrio de Vida</h2>
         <div class="grid-2">
             <div class="chart-box">
-                <h3>¿Es más difícil de lo que imaginabas?</h3>
+                <h3>¿Consideras tu carrera más difícil de lo imaginado?</h3>
                 <div class="bar-group">
-                    <div class="bar-label"><span>UPY (Sí)</span><span>12 de 16 (75%)</span></div>
+                    <div class="bar-label"><span>Sí, es más difícil</span><span>12 de 16 (75%)</span></div>
                     <div class="bar-container"><div class="bar-upy" style="width: 75%;"></div></div>
                 </div>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Otras Univ. (Sí)</span><span>9 de 15 (60%)</span></div>
-                    <div class="bar-container"><div class="bar-others" style="width: 60%;"></div></div>
-                </div>
-                <p style="font-size: 0.9rem; margin-top: 10px;">El modelo bilingüe y las ciencias exactas son un reto notable en la UPY.</p>
+                <p style="font-size: 0.95rem; margin-top: 10px;">El rigor matemático y el modelo inmersivo en inglés representan un choque con las expectativas iniciales.</p>
             </div>
             <div class="chart-box">
-                <h3>¿Tienes buen equilibrio de vida y estudio?</h3>
+                <h3>¿Sientes un buen equilibrio entre estudio y vida personal?</h3>
                 <div class="bar-group">
-                    <div class="bar-label"><span>UPY (Sí)</span><span style="color: #e53935;">6 de 16 (38%)</span></div>
+                    <div class="bar-label"><span>Sí hay buen equilibrio</span><span style="color: #e53935;">6 de 16 (38%)</span></div>
                     <div class="bar-container"><div class="bar-upy" style="width: 38%; background-color:#e53935;"></div></div>
                 </div>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Otras Univ. (Sí)</span><span>9 de 15 (60%)</span></div>
-                    <div class="bar-container"><div class="bar-others" style="width: 60%;"></div></div>
-                </div>
-                <p style="font-size: 0.9rem; margin-top: 10px;">Solo 6 alumnos de la UPY afirman manejar bien la carga contra su vida personal.</p>
+                <p style="font-size: 0.95rem; margin-top: 10px;">Punto de atención: 10 alumnos reportan desgaste o falta de tiempo para sus proyectos personales.</p>
             </div>
         </div>
     </div>
@@ -289,27 +268,20 @@
         <h2>Estilo de Trabajo y Certificaciones Externas</h2>
         <div class="grid-2">
             <div class="chart-box">
-                <h3>¿Prefieres trabajo técnico individual al de gestión?</h3>
+                <h3>¿Prefieres trabajo técnico individual sobre gestión?</h3>
                 <div class="bar-group">
-                    <div class="bar-label"><span>UPY (Sí)</span><span>10 de 16 (63%)</span></div>
+                    <div class="bar-label"><span>Prefiero perfil técnico</span><span>10 de 16 (63%)</span></div>
                     <div class="bar-container"><div class="bar-upy" style="width: 63%;"></div></div>
                 </div>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Otras Univ. (Sí)</span><span>7 de 15 (47%)</span></div>
-                    <div class="bar-container"><div class="bar-others" style="width: 47%;"></div></div>
-                </div>
+                <p style="font-size: 0.95rem; margin-top: 10px;">La vocación de los estudiantes de la UPY se inclina fuertemente hacia la especialización y el desarrollo (hard skills).</p>
             </div>
             <div class="chart-box">
-                <h3>¿Certificaciones valen más que el título?</h3>
+                <h3>¿Las certificaciones son más valiosas que el título?</h3>
                 <div class="bar-group">
-                    <div class="bar-label"><span>UPY (Sí)</span><span>11 de 16 (69%)</span></div>
+                    <div class="bar-label"><span>Sí, valen más</span><span>11 de 16 (69%)</span></div>
                     <div class="bar-container"><div class="bar-upy" style="width: 69%;"></div></div>
                 </div>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Otras Univ. (Sí)</span><span>8 de 15 (53%)</span></div>
-                    <div class="bar-container"><div class="bar-others" style="width: 53%;"></div></div>
-                </div>
-                <p style="font-size: 0.9rem; margin-top: 10px;">La mayoría de la muestra UPY valora credenciales como AWS, Cisco, etc.</p>
+                <p style="font-size: 0.95rem; margin-top: 10px;">Gran parte de la muestra considera credenciales externas (como AWS, Cisco, etc.) vitales para la empleabilidad.</p>
             </div>
         </div>
     </div>
@@ -318,58 +290,46 @@
         <h2>Motivación Social vs. Actualización Constante</h2>
         <div class="grid-2">
             <div class="chart-box">
-                <h3>¿Motiva más el impacto social que el económico?</h3>
+                <h3>¿Te motiva más el impacto social que el económico?</h3>
                 <div class="bar-group">
-                    <div class="bar-label"><span>UPY (Sí)</span><span>6 de 16 (38%)</span></div>
+                    <div class="bar-label"><span>Sí, impacto social</span><span>6 de 16 (38%)</span></div>
                     <div class="bar-container"><div class="bar-upy" style="width: 38%;"></div></div>
                 </div>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Otras Univ. (Sí)</span><span>8 de 15 (53%)</span></div>
-                    <div class="bar-container"><div class="bar-others" style="width: 53%;"></div></div>
-                </div>
-                <p style="font-size: 0.9rem; margin-top: 10px;">10 de los 16 estudiantes UPY priorizan el factor económico sobre el social.</p>
+                <p style="font-size: 0.95rem; margin-top: 10px;">La mayoría (10 alumnos) prioriza el desarrollo económico, mostrando pragmatismo respecto al mercado laboral.</p>
             </div>
             <div class="chart-box">
-                <h3>¿Cómodo con la actualización constante?</h3>
+                <h3>¿Estás cómodo con el ritmo de actualización de tu sector?</h3>
                 <div class="bar-group">
-                    <div class="bar-label"><span>UPY (Sí)</span><span>14 de 16 (88%)</span></div>
+                    <div class="bar-label"><span>Sí, estoy cómodo</span><span>14 de 16 (88%)</span></div>
                     <div class="bar-container"><div class="bar-upy" style="width: 88%;"></div></div>
                 </div>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Otras Univ. (Sí)</span><span>10 de 15 (67%)</span></div>
-                    <div class="bar-container"><div class="bar-others" style="width: 67%;"></div></div>
-                </div>
+                <p style="font-size: 0.95rem; margin-top: 10px;">Existe una clara asimilación de que la tecnología requiere aprendizaje continuo y autodidacta.</p>
             </div>
         </div>
     </div>
 
     <div class="slide-container">
-        <h2>Satisfacción General con la Elección</h2>
-        <p style="text-align: center; font-weight: bold; margin-bottom: 25px;">¿Estás satisfecho con la elección de carrera que hiciste?</p>
-        <div class="grid-2">
-            <div class="chart-box" style="text-align: center;">
-                <h3 style="color: var(--primary);">Estudiantes UPY</h3>
-                <div style="font-size: 3rem; font-weight: bold; color: var(--primary);">14 de 16</div>
-                <div style="font-size: 1.5rem; color: #37474f; margin-bottom: 10px;">(88%)</div>
-                <p>Respondieron afirmativamente. A pesar de la exigencia y la falta de tiempo libre, la satisfacción general es sobresaliente.</p>
-            </div>
-            <div class="chart-box" style="text-align: center;">
-                <h3 style="color: var(--secondary);">Otras Universidades</h3>
-                <div style="font-size: 3rem; font-weight: bold; color: var(--secondary);">11 de 15</div>
-                <div style="font-size: 1.5rem; color: #37474f; margin-bottom: 10px;">(73%)</div>
-                <p>Tienen un nivel de satisfacción bueno, aunque algunos estudiantes expresaron ciertas dudas respecto a su elección vocacional inicial.</p>
-            </div>
+        <h2 style="text-align: center; border: none; font-size: 2.2rem; margin-bottom: 30px;">Nivel de Satisfacción General</h2>
+        <p style="text-align: center; font-size: 1.3rem; margin-bottom: 25px;">¿Estás satisfecho con la elección de carrera que hiciste en la UPY?</p>
+        
+        <div class="chart-box" style="text-align: center; max-width: 600px; margin: 0 auto; border-top: 6px solid var(--primary);">
+            <h3 style="color: var(--primary); font-size: 1.5rem;">Total de Alumnos Satisfechos</h3>
+            <div style="font-size: 4rem; font-weight: bold; color: var(--primary); margin: 15px 0;">14 de 16</div>
+            <div style="font-size: 1.8rem; color: #37474f; margin-bottom: 20px; font-weight: bold;">(88%)</div>
+            <p style="font-size: 1.1rem;">
+                La gran mayoría respondió afirmativamente. A pesar de los retos de dificultad académica y la reducción del tiempo libre, <strong>el índice de validación de la vocación es sobresaliente</strong> dentro de la comunidad universitaria.
+            </p>
         </div>
     </div>
 
     <div class="slide-container">
-        <h2>Conclusiones y Recomendaciones</h2>
-        <p>Tras analizar la muestra de 31 estudiantes (16 UPY / 15 externos), concluimos lo siguiente:</p>
-        <div style="background: #e0f2f1; padding: 20px; border-radius: 8px; color: var(--dark);">
+        <h2>Conclusiones de la Investigación en la UPY</h2>
+        <p>A partir de la muestra de los 16 estudiantes encuestados dentro de nuestra institución, se concluye lo siguiente:</p>
+        <div style="background: #e0f2f1; padding: 25px; border-radius: 8px; color: var(--dark); font-size: 1.1rem;">
             <ul>
-                <li><strong>Alta Satisfacción Pese al Reto:</strong> Aunque 12 de los 16 encuestados en la UPY consideran su carrera más difícil de lo esperado, 14 de ellos (88%) están satisfechos con su elección y aceptan el ritmo de actualización.</li>
-                <li><strong>Alerta en Bienestar:</strong> Solo 6 de 16 alumnos de la UPY (38%) sienten tener un buen equilibrio de vida y estudio. Es recomendable que la institución ofrezca talleres de manejo del estrés.</li>
-                <li><strong>Pragmatismo Laboral:</strong> La motivación económica (10 de 16 alumnos) y el valor de las certificaciones (11 de 16 alumnos) muestran un perfil enfocado a los resultados y las demandas del mercado IT.</li>
+                <li style="margin-bottom: 15px;"><strong>Alta Satisfacción Pese a la Exigencia:</strong> Aunque el 75% considera que la carrera es más difícil de lo esperado, un contundente 88% está satisfecho con su elección, manteniendo el interés académico y asumiendo con naturalidad la necesidad de actualización constante.</li>
+                <li style="margin-bottom: 15px;"><strong>Alerta Institucional en el Bienestar:</strong> Solo el 38% de los alumnos siente tener un equilibrio adecuado entre la carga de la universidad y sus proyectos personales. Es una ventana de oportunidad para que la UPY fomente estrategias de gestión del tiempo y bienestar estudiantil.</li>
+                <li><strong>Perfil Pragmático y Competitivo:</strong> Los estudiantes tienen muy claros sus objetivos: priorizan el desarrollo económico (62%) y reconocen el enorme peso que tienen las certificaciones externas en el sector tecnológico (69%), apuntando a un perfil orientado al mercado laboral real.</li>
             </ul>
         </div>
     </div>

@@ -3,370 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio de Orientación Vocacional - UPY</title>
+    <title>Estudio UPY: Preferencias y Satisfacción</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <style>
-        :root {
-            --primary: #004d40;
-            --secondary: #00acc1;
-            --dark: #263238;
-            --light: #f4f6f7;
-            --accent: #ffb300;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--dark);
-            color: var(--light);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .slide-container {
-            width: 90%;
-            max-width: 1000px;
-            height: 80vh;
-            background: white;
-            color: var(--dark);
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            position: relative;
-            display: none;
-            padding: 40px;
-            overflow-y: auto;
-        }
-
-        .slide-container.active {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 { color: var(--primary); font-size: 2.5rem; margin-bottom: 20px; text-align: center;}
-        h2 { color: var(--primary); font-size: 1.8rem; margin-bottom: 15px; border-bottom: 3px solid var(--secondary); padding-bottom: 5px;}
-        h3 { color: var(--secondary); margin-bottom: 15px;}
-        p { font-size: 1.1rem; line-height: 1.6; color: #455a64; margin-bottom: 15px;}
-        ul { margin-left: 25px; margin-bottom: 15px; color: #455a64;}
-        li { margin-bottom: 10px; font-size: 1.05rem;}
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .chart-box {
-            background: #eceff1;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-        }
-
-        .bar-group { margin-bottom: 25px; }
-
-        .bar-label {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            font-size: 1rem;
-            margin-bottom: 8px;
-            color: #37474f;
-        }
-
-        .bar-label span:last-child {
-            background: #fff;
-            padding: 2px 8px;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            color: var(--primary);
-        }
-
-        .bar-container {
-            background: #cfd8dc;
-            border-radius: 10px;
-            overflow: hidden;
-            height: 24px;
-            display: flex;
-        }
-
-        .bar-upy {
-            background: var(--primary);
-            transition: width 1s ease-in-out;
-        }
-
-        .controls {
-            margin-top: 20px;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        button {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        button:hover { background: var(--primary); }
-        button:disabled { background: #b0bec5; cursor: not-allowed; }
-
-        .progress-indicator { font-size: 1rem; color: #b0bec5; }
-
-        .card-metrics {
-            display: flex;
-            justify-content: space-around;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .metric-card {
-            background: var(--light);
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            border-top: 4px solid var(--primary);
-            flex: 1;
-        }
-        .metric-num { font-size: 2rem; font-weight: bold; color: var(--primary); }
+        body, html { margin: 0; padding: 0; background-color: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
+        .slider-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; height: 100vh; width: 100vw; -ms-overflow-style: none; scrollbar-width: none; }
+        .slider-container::-webkit-scrollbar { display: none; }
+        .slide { scroll-snap-align: start; min-width: 100vw; height: 100vh; display: flex; flex-direction: column; padding: 2rem 4rem; box-sizing: border-box; position: relative; }
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 1rem; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; z-index: 10; font-weight: bold; }
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .prev-btn { left: 1rem; }
+        .next-btn { right: 1rem; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+        .chart-wrapper { position: relative; height: 35vh; width: 100%; margin-top: 1rem; }
     </style>
 </head>
 <body>
 
-    <div class="slide-container active">
-        <h1 style="font-size: 3rem;">Estudio de Preferencias Académicas y Profesionales</h1>
-        <h3 style="text-align: center; margin-top: 10px;">Universidad Politécnica de Yucatán</h3>
-        <p style="text-align: center; max-width: 600px; margin: 30px auto 0 auto;">
-            Un análisis detallado sobre los factores de elección de carrera, satisfacción estudiantil y expectativas de futuro de los alumnos de la UPY.
-        </p>
-    </div>
-
-    <div class="slide-container">
-        <h2>Planteamiento del Problema & Justificación</h2>
-        <div class="grid-2">
-            <div>
-                <h3>El Reto Vocacional</h3>
-                <p>Los alumnos de la UPY enfrentan el desafío de elegir carreras tecnológicas avanzadas alineadas a sus intereses. La falta de claridad en los factores de influencia y expectativas futuras genera riesgos de deserción que deben ser atendidos.</p>
+    <div class="slider-container" id="slider">
+        
+        <div class="slide justify-center items-center">
+            <div class="glass-panel max-w-4xl w-full text-center p-10">
+                <h1 class="text-5xl font-bold text-teal-400 mb-4">Estudio de Preferencias Académicas</h1>
+                <h2 class="text-3xl text-slate-300 mb-8">Universidad Politécnica de Yucatán (UPY)</h2>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-8">Análisis de los factores de elección de carrera, nivel de satisfacción y expectativas de una muestra de 16 estudiantes internos.</p>
+                
+                <div class="grid grid-cols-2 gap-6 text-left mt-6">
+                    <div class="bg-slate-800/50 p-6 rounded-lg border border-slate-600">
+                        <h3 class="text-xl font-bold text-emerald-400 mb-2">Objetivo General</h3>
+                        <p class="text-slate-300">Analizar las preferencias académicas y profesionales de los estudiantes de la UPY para identificar factores determinantes que mejoren la orientación vocacional.</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-6 rounded-lg border border-slate-600">
+                        <h3 class="text-xl font-bold text-cyan-400 mb-2">Justificación</h3>
+                        <p class="text-slate-300">Conocer la motivación real ayuda a la UPY a detectar áreas de mejora académica y reduce el índice de deserción o cambio de carrera.</p>
+                    </div>
+                </div>
+                <p class="mt-8 text-slate-500 animate-pulse text-sm">Usa las flechas para navegar por las estadísticas</p>
             </div>
-            <div class="chart-box" style="background: #fff3e0; border-left: 5px solid var(--accent);">
-                <h3>Impacto de la Investigación</h3>
-                <ul>
-                    <li><strong>Académico:</strong> Permite conocer las motivaciones de los estudiantes para fortalecer los programas de orientación vocacional internos.</li>
-                    <li><strong>Institucional:</strong> Ayudará a la UPY a detectar áreas de mejora en su oferta educativa y a implementar estrategias de satisfacción.</li>
-                    <li><strong>Social:</strong> Ayudará a los alumnos a tomar decisiones más informadas, reduciendo el cambio de carrera.</li>
+            <button class="nav-btn next-btn" onclick="moveSlide(1)">▶</button>
+        </div>
+
+        <div class="slide">
+            <button class="nav-btn prev-btn" onclick="moveSlide(-1)">◀</button>
+            <h2 class="text-3xl font-bold text-teal-400 mb-2">1. Perfil Demográfico (Muestra: 16 alumnos)</h2>
+            <p class="text-slate-400 mb-4">Datos generales de los encuestados de la UPY.</p>
+            
+            <div class="grid grid-cols-3 gap-6 flex-grow">
+                <div class="glass-panel items-center">
+                    <h3 class="text-xl font-semibold text-center text-white">Sexo</h3>
+                    <div class="chart-wrapper"><canvas id="chartSexo"></canvas></div>
+                </div>
+                <div class="glass-panel items-center">
+                    <h3 class="text-xl font-semibold text-center text-white">Edades</h3>
+                    <div class="chart-wrapper"><canvas id="chartEdad"></canvas></div>
+                </div>
+                <div class="glass-panel items-center">
+                    <h3 class="text-xl font-semibold text-center text-white">Carrera en curso</h3>
+                    <div class="chart-wrapper"><canvas id="chartCarrera"></canvas></div>
+                </div>
+            </div>
+            <button class="nav-btn next-btn" onclick="moveSlide(1)">▶</button>
+        </div>
+
+        <div class="slide">
+            <button class="nav-btn prev-btn" onclick="moveSlide(-1)">◀</button>
+            <h2 class="text-3xl font-bold text-cyan-400 mb-2">2. Percepción Inicial Académica</h2>
+            <p class="text-slate-400 mb-4">Cómo perciben los estudiantes el contenido y la exigencia de la UPY.</p>
+            
+            <div class="grid grid-cols-2 gap-8 flex-grow">
+                <div class="glass-panel items-center">
+                    <h3 class="text-2xl font-semibold text-center text-white mb-2">¿Te parece interesante tu carrera?</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">La inmensa mayoría mantiene su motivación inicial.</p>
+                    <div class="chart-wrapper h-[45vh]"><canvas id="chartInteres"></canvas></div>
+                </div>
+                <div class="glass-panel items-center">
+                    <h3 class="text-2xl font-semibold text-center text-white mb-2">¿Es más difícil de lo imaginado?</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">El modelo BIS y ciencias exactas representan un reto mayor al esperado.</p>
+                    <div class="chart-wrapper h-[45vh]"><canvas id="chartDificultad"></canvas></div>
+                </div>
+            </div>
+            <button class="nav-btn next-btn" onclick="moveSlide(1)">▶</button>
+        </div>
+
+        <div class="slide">
+            <button class="nav-btn prev-btn" onclick="moveSlide(-1)">◀</button>
+            <h2 class="text-3xl font-bold text-indigo-400 mb-2">3. Vida Personal y Estilo de Trabajo</h2>
+            <p class="text-slate-400 mb-4">Gestión del tiempo y preferencias de especialización.</p>
+            
+            <div class="grid grid-cols-2 gap-8 flex-grow">
+                <div class="glass-panel items-center">
+                    <h3 class="text-2xl font-semibold text-center text-white mb-2">Buen equilibrio: Estudio vs Vida Personal</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">Punto crítico: 10 alumnos reportan falta de tiempo.</p>
+                    <div class="chart-wrapper h-[45vh]"><canvas id="chartEquilibrio"></canvas></div>
+                </div>
+                <div class="glass-panel items-center">
+                    <h3 class="text-2xl font-semibold text-center text-white mb-2">¿Prefieres perfil técnico individual vs gestión?</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">Tendencia hacia la especialización de Hard Skills.</p>
+                    <div class="chart-wrapper h-[45vh]"><canvas id="chartPerfil"></canvas></div>
+                </div>
+            </div>
+            <button class="nav-btn next-btn" onclick="moveSlide(1)">▶</button>
+        </div>
+
+        <div class="slide">
+            <button class="nav-btn prev-btn" onclick="moveSlide(-1)">◀</button>
+            <h2 class="text-3xl font-bold text-emerald-400 mb-2">4. Mercado Laboral y Motivaciones</h2>
+            <p class="text-slate-400 mb-4">Visión sobre la industria y el desarrollo profesional.</p>
+            
+            <div class="grid grid-cols-2 gap-8 flex-grow">
+                <div class="glass-panel items-center">
+                    <h3 class="text-2xl font-semibold text-center text-white mb-2">¿Motiva más el Impacto Social o el Dinero?</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">El pragmatismo económico domina en el sector tecnológico.</p>
+                    <div class="chart-wrapper h-[45vh]"><canvas id="chartMotivacion"></canvas></div>
+                </div>
+                <div class="glass-panel items-center">
+                    <h3 class="text-2xl font-semibold text-center text-white mb-2">¿Certificaciones valen más que el Título?</h3>
+                    <p class="text-sm text-slate-400 text-center mb-4">Alta valoración de credenciales externas (AWS, Cisco, etc.).</p>
+                    <div class="chart-wrapper h-[45vh]"><canvas id="chartCertificaciones"></canvas></div>
+                </div>
+            </div>
+            <button class="nav-btn next-btn" onclick="moveSlide(1)">▶</button>
+        </div>
+
+        <div class="slide">
+            <button class="nav-btn prev-btn" onclick="moveSlide(-1)">◀</button>
+            <h2 class="text-3xl font-bold text-amber-400 mb-2">5. Proyección y Satisfacción Final</h2>
+            <p class="text-slate-400 mb-4">La resolución vocacional de la muestra.</p>
+            
+            <div class="grid grid-cols-3 gap-6 flex-grow">
+                <div class="glass-panel items-center">
+                    <h3 class="text-lg font-semibold text-center text-white mb-2">¿Cómodo con actualizarte constantemente?</h3>
+                    <div class="chart-wrapper"><canvas id="chartActualizacion"></canvas></div>
+                </div>
+                <div class="glass-panel items-center">
+                    <h3 class="text-lg font-semibold text-center text-white mb-2">¿Te visualizas en esta área en 5 años?</h3>
+                    <div class="chart-wrapper"><canvas id="chart5Anos"></canvas></div>
+                </div>
+                <div class="glass-panel items-center border-2 border-amber-500/50">
+                    <h3 class="text-xl font-bold text-center text-amber-400 mb-2">¿Satisfecho con tu elección?</h3>
+                    <div class="chart-wrapper"><canvas id="chartSatisfaccion"></canvas></div>
+                </div>
+            </div>
+            <button class="nav-btn next-btn" onclick="moveSlide(1)">▶</button>
+        </div>
+
+        <div class="slide justify-center items-center">
+            <button class="nav-btn prev-btn" onclick="moveSlide(-1)">◀</button>
+            <div class="glass-panel max-w-4xl w-full">
+                <h1 class="text-4xl font-bold text-white mb-6 text-center border-b border-slate-600 pb-4">Conclusiones Generales (UPY)</h1>
+                
+                <ul class="space-y-6 text-lg text-slate-300 list-none">
+                    <li class="flex items-start">
+                        <span class="text-amber-400 mr-4 text-3xl">🏆</span>
+                        <div>
+                            <strong class="text-white block mb-1">Satisfacción Resiliente (88%)</strong>
+                            A pesar de que 12 de los 16 alumnos sienten que la carrera es más difícil de lo esperado, 14 de ellos afirman estar muy satisfechos con su elección, demostrando una fuerte vocación por la tecnología.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-rose-400 mr-4 text-3xl">⚖️</span>
+                        <div>
+                            <strong class="text-white block mb-1">Foco Rojo en Bienestar Estudiantil</strong>
+                            10 estudiantes admiten un desequilibrio entre su vida personal y el estudio. Esto sugiere la necesidad de implementar talleres institucionales de gestión del tiempo y manejo del estrés.
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-emerald-400 mr-4 text-3xl">💼</span>
+                        <div>
+                            <strong class="text-white block mb-1">Perfil Pragmático y Competitivo</strong>
+                            La preferencia por las certificaciones externas (11 alumnos) y el enfoque en la remuneración económica (10 alumnos) evidencian que el estudiante de la UPY tiene la mira puesta en las realidades del mercado global.
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
-    </div>
 
-    <div class="slide-container">
-        <h2>Objetivos del Estudio</h2>
-        <div class="grid-2">
-            <div class="chart-box">
-                <h3 style="color: var(--primary);">Objetivo General</h3>
-                <p>Analizar las preferencias académicas y profesionales de los estudiantes de la UPY para identificar factores determinantes que ayuden a mejorar la orientación vocacional y la oferta educativa de la institución.</p>
-            </div>
-            <div class="chart-box">
-                <h3 style="color: var(--secondary);">Objetivo Particular</h3>
-                <p>Identificar los factores específicos que influyen en la elección de carrera dentro de la UPY (como el interés personal, influencia familiar, oportunidades laborales y prestigio de la institución) y su relación con el nivel de satisfacción actual.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide-container">
-        <h2>Perfil Demográfico de la Muestra</h2>
-        <p>Se encuestó a un grupo focal interno para obtener estadísticas precisas sobre la comunidad estudiantil de la UPY.</p>
-        <div class="grid-2">
-            <div>
-                <h3>Datos Generales</h3>
-                <div class="card-metrics">
-                    <div class="metric-card"><div class="metric-num">16</div><p>Total de<br>Alumnos UPY</p></div>
-                    <div class="metric-card"><div class="metric-num">20</div><p>Edad<br>Promedio</p></div>
-                    <div class="metric-card"><div class="metric-num">100%</div><p>Modalidad<br>Bilingüe</p></div>
-                </div>
-            </div>
-            <div class="chart-box">
-                <h3>Distribución por Sexo</h3>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Hombres</span><span>9 de 16 (56%)</span></div>
-                    <div class="bar-container"><div class="bar-upy" style="width: 56%;"></div></div>
-                </div>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Mujeres</span><span>7 de 16 (44%)</span></div>
-                    <div class="bar-container"><div class="bar-upy" style="width: 44%; background: #00796b;"></div></div>
-                </div>
-                <span style="font-size: 0.85rem; color:#78909c;">*La muestra incluye estudiantes cursando diferentes cuatrimestres.</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide-container">
-        <h2>Interés Actual y Visión a Futuro (5 años)</h2>
-        <div class="grid-2">
-            <div class="chart-box">
-                <h3>¿Te parece interesante tu carrera?</h3>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Sí, es muy interesante</span><span>14 de 16 (88%)</span></div>
-                    <div class="bar-container"><div class="bar-upy" style="width: 88%;"></div></div>
-                </div>
-                <p style="font-size: 0.95rem; margin-top: 10px;">Casi la totalidad de la muestra mantiene un interés genuino y alta motivación por el plan de estudios.</p>
-            </div>
-            <div class="chart-box">
-                <h3>¿Te visualizas trabajando en tu área en 5 años?</h3>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Sí me visualizo</span><span>13 de 16 (81%)</span></div>
-                    <div class="bar-container"><div class="bar-upy" style="width: 81%;"></div></div>
-                </div>
-                <p style="font-size: 0.95rem; margin-top: 10px;">Existe una fuerte proyección a futuro, respaldada por la alta demanda del sector tecnológico.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide-container">
-        <h2>Percepción de Dificultad y Equilibrio de Vida</h2>
-        <div class="grid-2">
-            <div class="chart-box">
-                <h3>¿Consideras tu carrera más difícil de lo imaginado?</h3>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Sí, es más difícil</span><span>12 de 16 (75%)</span></div>
-                    <div class="bar-container"><div class="bar-upy" style="width: 75%;"></div></div>
-                </div>
-                <p style="font-size: 0.95rem; margin-top: 10px;">El rigor matemático y el modelo inmersivo en inglés representan un choque con las expectativas iniciales.</p>
-            </div>
-            <div class="chart-box">
-                <h3>¿Sientes un buen equilibrio entre estudio y vida personal?</h3>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Sí hay buen equilibrio</span><span style="color: #e53935;">6 de 16 (38%)</span></div>
-                    <div class="bar-container"><div class="bar-upy" style="width: 38%; background-color:#e53935;"></div></div>
-                </div>
-                <p style="font-size: 0.95rem; margin-top: 10px;">Punto de atención: 10 alumnos reportan desgaste o falta de tiempo para sus proyectos personales.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide-container">
-        <h2>Estilo de Trabajo y Certificaciones Externas</h2>
-        <div class="grid-2">
-            <div class="chart-box">
-                <h3>¿Prefieres trabajo técnico individual sobre gestión?</h3>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Prefiero perfil técnico</span><span>10 de 16 (63%)</span></div>
-                    <div class="bar-container"><div class="bar-upy" style="width: 63%;"></div></div>
-                </div>
-                <p style="font-size: 0.95rem; margin-top: 10px;">La vocación de los estudiantes de la UPY se inclina fuertemente hacia la especialización y el desarrollo (hard skills).</p>
-            </div>
-            <div class="chart-box">
-                <h3>¿Las certificaciones son más valiosas que el título?</h3>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Sí, valen más</span><span>11 de 16 (69%)</span></div>
-                    <div class="bar-container"><div class="bar-upy" style="width: 69%;"></div></div>
-                </div>
-                <p style="font-size: 0.95rem; margin-top: 10px;">Gran parte de la muestra considera credenciales externas (como AWS, Cisco, etc.) vitales para la empleabilidad.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide-container">
-        <h2>Motivación Social vs. Actualización Constante</h2>
-        <div class="grid-2">
-            <div class="chart-box">
-                <h3>¿Te motiva más el impacto social que el económico?</h3>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Sí, impacto social</span><span>6 de 16 (38%)</span></div>
-                    <div class="bar-container"><div class="bar-upy" style="width: 38%;"></div></div>
-                </div>
-                <p style="font-size: 0.95rem; margin-top: 10px;">La mayoría (10 alumnos) prioriza el desarrollo económico, mostrando pragmatismo respecto al mercado laboral.</p>
-            </div>
-            <div class="chart-box">
-                <h3>¿Estás cómodo con el ritmo de actualización de tu sector?</h3>
-                <div class="bar-group">
-                    <div class="bar-label"><span>Sí, estoy cómodo</span><span>14 de 16 (88%)</span></div>
-                    <div class="bar-container"><div class="bar-upy" style="width: 88%;"></div></div>
-                </div>
-                <p style="font-size: 0.95rem; margin-top: 10px;">Existe una clara asimilación de que la tecnología requiere aprendizaje continuo y autodidacta.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide-container">
-        <h2 style="text-align: center; border: none; font-size: 2.2rem; margin-bottom: 30px;">Nivel de Satisfacción General</h2>
-        <p style="text-align: center; font-size: 1.3rem; margin-bottom: 25px;">¿Estás satisfecho con la elección de carrera que hiciste en la UPY?</p>
-        
-        <div class="chart-box" style="text-align: center; max-width: 600px; margin: 0 auto; border-top: 6px solid var(--primary);">
-            <h3 style="color: var(--primary); font-size: 1.5rem;">Total de Alumnos Satisfechos</h3>
-            <div style="font-size: 4rem; font-weight: bold; color: var(--primary); margin: 15px 0;">14 de 16</div>
-            <div style="font-size: 1.8rem; color: #37474f; margin-bottom: 20px; font-weight: bold;">(88%)</div>
-            <p style="font-size: 1.1rem;">
-                La gran mayoría respondió afirmativamente. A pesar de los retos de dificultad académica y la reducción del tiempo libre, <strong>el índice de validación de la vocación es sobresaliente</strong> dentro de la comunidad universitaria.
-            </p>
-        </div>
-    </div>
-
-    <div class="slide-container">
-        <h2>Conclusiones de la Investigación en la UPY</h2>
-        <p>A partir de la muestra de los 16 estudiantes encuestados dentro de nuestra institución, se concluye lo siguiente:</p>
-        <div style="background: #e0f2f1; padding: 25px; border-radius: 8px; color: var(--dark); font-size: 1.1rem;">
-            <ul>
-                <li style="margin-bottom: 15px;"><strong>Alta Satisfacción Pese a la Exigencia:</strong> Aunque el 75% considera que la carrera es más difícil de lo esperado, un contundente 88% está satisfecho con su elección, manteniendo el interés académico y asumiendo con naturalidad la necesidad de actualización constante.</li>
-                <li style="margin-bottom: 15px;"><strong>Alerta Institucional en el Bienestar:</strong> Solo el 38% de los alumnos siente tener un equilibrio adecuado entre la carga de la universidad y sus proyectos personales. Es una ventana de oportunidad para que la UPY fomente estrategias de gestión del tiempo y bienestar estudiantil.</li>
-                <li><strong>Perfil Pragmático y Competitivo:</strong> Los estudiantes tienen muy claros sus objetivos: priorizan el desarrollo económico (62%) y reconocen el enorme peso que tienen las certificaciones externas en el sector tecnológico (69%), apuntando a un perfil orientado al mercado laboral real.</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="controls">
-        <button id="prevBtn" onclick="changeSlide(-1)" disabled>Anterior</button>
-        <span class="progress-indicator" id="progressText">Slide 1 de 10</span>
-        <button id="nextBtn" onclick="changeSlide(1)">Siguiente</button>
     </div>
 
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide-container');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const progressText = document.getElementById('progressText');
-
-        function updateSlideVisibility() {
-            slides.forEach((slide, index) => {
-                if(index === currentSlide) {
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.remove('active');
-                }
-            });
-            
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide === slides.length - 1;
-            progressText.innerText = `Slide ${currentSlide + 1} de ${slides.length}`;
+        // Navegación del Slider
+        const slider = document.getElementById('slider');
+        function moveSlide(direction) {
+            const slideWidth = window.innerWidth;
+            slider.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
         }
 
-        function changeSlide(direction) {
-            currentSlide += direction;
-            if(currentSlide < 0) currentSlide = 0;
-            if(currentSlide >= slides.length) currentSlide = slides.length - 1;
-            updateSlideVisibility();
-        }
+        // Configuración Global de Chart.js + DataLabels (Plugin)
+        Chart.register(ChartDataLabels);
+        Chart.defaults.color = '#cbd5e1';
+        Chart.defaults.font.family = "'Segoe UI', sans-serif";
+        Chart.defaults.font.size = 14;
+        
+        // Formato para que salga el NÚMERO y el PORCENTAJE fijos en la gráfica
+        const labelFormatter = {
+            color: '#ffffff',
+            font: { weight: 'bold', size: 14 },
+            textStrokeColor: 'rgba(0,0,0,0.5)',
+            textStrokeWidth: 3,
+            formatter: (value, context) => {
+                let sum = 0;
+                let dataArr = context.chart.data.datasets[0].data;
+                dataArr.map(data => { sum += data; });
+                let percentage = Math.round((value * 100) / sum) + "%";
+                return value + " (" + percentage + ")";
+            }
+        };
+
+        const barOptions = { 
+            responsive: true, maintainAspectRatio: false, 
+            plugins: { legend: { display: false }, datalabels: labelFormatter },
+            scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' } }, x: { grid: { display: false } } }
+        };
+
+        const pieOptions = { 
+            responsive: true, maintainAspectRatio: false, 
+            plugins: { legend: { position: 'bottom', labels: { padding: 20 } }, datalabels: labelFormatter }
+        };
+
+        // --- DATOS (Siempre sumando 16 alumnos de la UPY) ---
+
+        // 1. Sexo (Pastel)
+        new Chart(document.getElementById('chartSexo'), {
+            type: 'pie',
+            data: { labels: ['Hombres', 'Mujeres'], datasets: [{ data: [9, 7], backgroundColor: ['#0ea5e9', '#14b8a6'], borderWidth: 0 }] },
+            options: pieOptions
+        });
+
+        // 2. Edad (Barras)
+        new Chart(document.getElementById('chartEdad'), {
+            type: 'bar',
+            data: { labels: ['18 años', '19 años', '20 años', '21+ años'], datasets: [{ data: [2, 5, 6, 3], backgroundColor: '#6366f1', borderRadius: 4 }] },
+            options: barOptions
+        });
+
+        // 3. Carrera (Dona)
+        new Chart(document.getElementById('chartCarrera'), {
+            type: 'doughnut',
+            data: { labels: ['Ciberseguridad', 'Ing. Datos', 'Sist. Embebidos', 'Robótica'], datasets: [{ data: [6, 4, 3, 3], backgroundColor: ['#8b5cf6', '#d946ef', '#f43f5e', '#f59e0b'], borderWidth: 0 }] },
+            options: pieOptions
+        });
+
+        // 4. Interesante (Pastel)
+        new Chart(document.getElementById('chartInteres'), {
+            type: 'pie',
+            data: { labels: ['Sí, mucho', 'Poco / Nada'], datasets: [{ data: [14, 2], backgroundColor: ['#10b981', '#64748b'], borderWidth: 0 }] },
+            options: pieOptions
+        });
+
+        // 5. Dificultad (Barras)
+        new Chart(document.getElementById('chartDificultad'), {
+            type: 'bar',
+            data: { labels: ['Sí, es más difícil', 'No, es igual / fácil'], datasets: [{ data: [12, 4], backgroundColor: ['#f43f5e', '#3b82f6'], borderRadius: 4 }] },
+            options: { ...barOptions, plugins: { ...barOptions.plugins, legend: {display: false} } }
+        });
+
+        // 6. Equilibrio (Dona)
+        new Chart(document.getElementById('chartEquilibrio'), {
+            type: 'doughnut',
+            data: { labels: ['Me falta tiempo', 'Buen equilibrio'], datasets: [{ data: [10, 6], backgroundColor: ['#ef4444', '#10b981'], borderWidth: 0 }] },
+            options: pieOptions
+        });
+
+        // 7. Perfil Técnico vs Gestión (Pastel)
+        new Chart(document.getElementById('chartPerfil'), {
+            type: 'pie',
+            data: { labels: ['Perfil Técnico/Individual', 'Perfil Gestión/Equipos'], datasets: [{ data: [10, 6], backgroundColor: ['#3b82f6', '#8b5cf6'], borderWidth: 0 }] },
+            options: pieOptions
+        });
+
+        // 8. Motivación (Dona)
+        new Chart(document.getElementById('chartMotivacion'), {
+            type: 'doughnut',
+            data: { labels: ['Remuneración Económica', 'Impacto Social'], datasets: [{ data: [10, 6], backgroundColor: ['#eab308', '#ec4899'], borderWidth: 0 }] },
+            options: pieOptions
+        });
+
+        // 9. Certificaciones (Barras)
+        new Chart(document.getElementById('chartCertificaciones'), {
+            type: 'bar',
+            data: { labels: ['Valen MÁS que el título', 'Valen IGUAL / MENOS'], datasets: [{ data: [11, 5], backgroundColor: ['#06b6d4', '#64748b'], borderRadius: 4 }] },
+            options: barOptions
+        });
+
+        // 10. Actualización (Pastel)
+        new Chart(document.getElementById('chartActualizacion'), {
+            type: 'pie',
+            data: { labels: ['Cómodo y motivado', 'Me abruma un poco'], datasets: [{ data: [14, 2], backgroundColor: ['#8b5cf6', '#f43f5e'], borderWidth: 0 }] },
+            options: pieOptions
+        });
+
+        // 11. Visualización a 5 años (Barras Horizontal)
+        new Chart(document.getElementById('chart5Anos'), {
+            type: 'bar',
+            data: { labels: ['Sí me visualizo', 'Dudo / No'], datasets: [{ data: [13, 3], backgroundColor: ['#14b8a6', '#94a3b8'], borderRadius: 4 }] },
+            options: { ...barOptions, indexAxis: 'y', scales: { x: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' } }, y: { grid: { display: false } } } }
+        });
+
+        // 12. Satisfacción Final (Dona Gigante)
+        new Chart(document.getElementById('chartSatisfaccion'), {
+            type: 'doughnut',
+            data: { labels: ['Muy Satisfecho', 'Arrepentido / Dudoso'], datasets: [{ data: [14, 2], backgroundColor: ['#f59e0b', '#dc2626'], borderWidth: 0 }] },
+            options: pieOptions
+        });
+
     </script>
 </body>
 </html>
